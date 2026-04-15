@@ -1,0 +1,254 @@
+/* ============================================================
+   styles.css — Custom Stylesheet for Thailand Adventures Page
+   Author: Alec Roland
+   ============================================================ */
+
+
+/* ---- STYLE 1: Body / Base ---------------------------------- */
+body {
+    background-color: #0d1b0f;
+    background-image: url('https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=75');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center top;
+    font-family: Georgia, 'Times New Roman', serif;
+    color: #f0e6d3;
+    margin: 0;
+    padding: 0;
+}
+
+/* Dark overlay so background image doesn't overpower text */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(8, 18, 6, 0.78);
+    z-index: 0;
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   DIV CONTAINERS (3+ divs for positioning & styling blocks)
+   ============================================================ */
+
+/* DIV 1: Main content wrapper — centers and constrains content */
+.content-wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+}
+
+/* DIV 2: Hero banner — full-width top section */
+.hero-banner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 90px 20px 60px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 100%);
+}
+
+/* DIV 3: Section card — frosted glass card for each content block */
+.section-card {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(212, 168, 67, 0.2);
+    border-radius: 14px;
+    padding: 32px 36px;
+    margin-bottom: 36px;
+}
+
+/* DIV 4: Image container — styled frame for photos */
+.image-container {
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 18px 0;
+    border: 2px solid rgba(212, 168, 67, 0.35);
+    line-height: 0;
+}
+
+/* DIV 5: Tableau container — white bg for the chart */
+.tableau-container {
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 8px;
+    border: 2px solid rgba(212, 168, 67, 0.35);
+}
+
+/* DIV 6: Video container — responsive 16:9 embed wrapper */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 2px solid rgba(212, 168, 67, 0.35);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+}
+
+
+/* ============================================================
+   TYPOGRAPHY STYLES (4+ definitions with font-color & font-family)
+   ============================================================ */
+
+/* STYLE 2: Page main title */
+.page-title {
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    font-size: 3.8rem;
+    font-weight: 700;
+    color: #ffd700;                    /* font-color */
+    text-shadow: 0 2px 12px rgba(0,0,0,0.9);
+    margin-bottom: 12px;
+    line-height: 1.1;
+}
+
+/* STYLE 3: Subtitle / tagline above main title */
+.subtitle {
+    font-family: 'Arial', Helvetica, sans-serif;    /* font-family */
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #d4a843;                    /* font-color */
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+/* STYLE 4: Section headings inside cards */
+.section-heading {
+    font-family: Georgia, serif;      /* font-family */
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: #ffc04a;                   /* font-color */
+    border-bottom: 2px solid rgba(255, 192, 74, 0.3);
+    padding-bottom: 10px;
+    margin-bottom: 18px;
+}
+
+/* STYLE 5: General body / paragraph text */
+.body-text {
+    font-family: Georgia, 'Times New Roman', serif;  /* font-family */
+    font-size: 1.05rem;
+    color: #e8d5b7;                   /* font-color */
+    line-height: 1.85;
+    margin-bottom: 16px;
+}
+
+/* STYLE 6: Highlighted / emphasized inline text */
+.highlight {
+    font-family: 'Arial', Helvetica, sans-serif;   /* font-family */
+    font-weight: 700;
+    color: #ffd700;                   /* font-color */
+}
+
+/* STYLE 7: Image caption */
+.caption {
+    font-family: 'Arial', Helvetica, sans-serif;   /* font-family */
+    font-size: 0.88rem;
+    font-style: italic;
+    color: #c9a97a;                   /* font-color */
+    text-align: center;
+    margin-top: 8px;
+}
+
+/* STYLE 8: Navigation bar at top of page */
+.page-nav {
+    font-family: 'Arial', Helvetica, sans-serif;   /* font-family */
+    background: rgba(255, 200, 80, 0.12);
+    border: 1px solid rgba(255, 200, 80, 0.3);
+    border-radius: 8px;
+    padding: 12px 24px;
+    margin-bottom: 0;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.page-nav a {
+    color: #ffd700;                   /* font-color */
+    text-decoration: none;
+    margin: 0 14px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.page-nav a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* STYLE 9: Lists */
+.custom-list {
+    font-family: Georgia, serif;      /* font-family */
+    color: #e8d5b7;                   /* font-color */
+    line-height: 1.9;
+    padding-left: 22px;
+}
+
+.custom-list li { margin-bottom: 4px; }
+.custom-list ul { margin-top: 4px; }
+
+/* STYLE 10: In-page anchor jump links */
+.anchor-links a {
+    font-family: 'Arial', Helvetica, sans-serif;   /* font-family */
+    color: #ffd700;                   /* font-color */
+    text-decoration: none;
+    margin: 0 8px;
+    font-size: 0.92rem;
+}
+
+.anchor-links a:hover { color: #fff; text-decoration: underline; }
+
+/* STYLE 11: CTA / App link button */
+.app-link-btn {
+    display: inline-block;
+    font-family: 'Arial', Helvetica, sans-serif;   /* font-family */
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffd700, #d4a843);
+    color: #0d1b0f;                   /* font-color */
+    padding: 13px 34px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 8px;
+}
+
+.app-link-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(212, 168, 67, 0.4);
+    color: #0d1b0f;
+    text-decoration: none;
+}
+
+/* STYLE 12: Scroll anchor target offset (so sticky nav doesn't cover headings) */
+.anchor-section { scroll-margin-top: 24px; }
+
+/* STYLE 13: Footer text */
+.page-footer {
+    font-family: 'Arial', Helvetica, sans-serif;  /* font-family */
+    font-size: 0.88rem;
+    color: #7a6a56;                   /* font-color */
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.page-footer a {
+    color: #ffd700;
+    text-decoration: none;
+}
+
+.page-footer a:hover { text-decoration: underline; }

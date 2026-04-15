@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alec Roland | Resume</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    :root { --navy: #0f2a4e; --gold: #d4a843; }
+    body { background-color: #f5f7fa; font-family: 'Segoe UI', sans-serif; }
+
+    /* Navbar */
+    .navbar { background-color: var(--navy) !important; }
+    .navbar-brand { font-weight: 700; }
+
+    /* Header band */
+    .resume-header {
+      background: linear-gradient(135deg, #0f2a4e, #1a4472);
+      color: white;
+    }
+    .resume-header a { color: #aac4e8; text-decoration: none; }
+    .resume-header a:hover { color: #fff; text-decoration: underline; }
+
+    /* Section titles */
+    .section-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--navy);
+      font-weight: 700;
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 6px;
+      margin-bottom: 18px;
+    }
+
+    /* Timeline items */
+    .timeline-item { position: relative; padding-left: 22px; margin-bottom: 24px; }
+    .timeline-item::before {
+      content: '';
+      width: 10px; height: 10px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: absolute;
+      left: 0; top: 6px;
+    }
+    .timeline-item::after {
+      content: '';
+      width: 2px;
+      background: #dee2e6;
+      position: absolute;
+      left: 4px; top: 18px;
+      bottom: -20px;
+    }
+    .timeline-item:last-child::after { display: none; }
+
+    /* Skill badges */
+    .skill-tag {
+      display: inline-block;
+      background: #eaf0fb;
+      color: var(--navy);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 12px;
+      margin: 3px;
+    }
+
+    /* Award line */
+    .award-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+
+    /* Print button */
+    @media print {
+      .navbar, .print-btn { display: none !important; }
+      body { background: white; }
+      .resume-card { box-shadow: none; }
+    }
+
+    footer { background-color: var(--navy); }
+    footer a { color: #aac4e8; text-decoration: none; }
+    footer a:hover { color: #fff; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow">
+    <div class="container">
+      <a class="navbar-brand text-white" href="index.html">Alec Roland</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link text-white" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active text-white" href="resume.html">Resume</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="scratch.html">Adventures</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="app.html">Trivia App</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Resume Header -->
+  <div class="resume-header py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h1 class="display-5 fw-bold mb-1">Alec C. Roland</h1>
+          <p class="lead mb-3" style="color: #c8daf2;">Finance Student &middot; BYU Marriott School of Business &middot; Class of 2028</p>
+          <div class="d-flex flex-wrap gap-4">
+            <a href="mailto:alecr04@byu.edu"><i class="bi bi-envelope-fill me-1"></i>alecr04@byu.edu</a>
+            <a href="tel:5099981299"><i class="bi bi-telephone-fill me-1"></i>(509) 998-1299</a>
+            <a href="https://linkedin.com/in/alec-roland12345" target="_blank"><i class="bi bi-linkedin me-1"></i>LinkedIn</a>
+          </div>
+        </div>
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+          <button class="btn btn-outline-light print-btn" onclick="window.print()">
+            <i class="bi bi-printer me-2"></i>Print Resume
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resume Body -->
+  <div class="container py-5" style="max-width: 960px;">
+    <div class="row g-4">
+
+      <!-- LEFT COLUMN: Education, Skills, Honors -->
+      <div class="col-md-4">
+
+        <!-- Education -->
+        <div class="bg-white rounded-3 shadow-sm p-4 mb-4 resume-card">
+          <h6 class="section-title">Education</h6>
+          <div>
+            <h6 class="fw-bold mb-0">Brigham Young University</h6>
+            <p class="text-muted small mb-1">Marriott School of Business &mdash; Provo, UT</p>
+            <p class="small mb-1">Pre-Business &middot; Applying to Finance Program</p>
+            <p class="small mb-1"><strong>Expected Graduation:</strong> April 2028</p>
+            <p class="small mb-1"><strong>GPA:</strong> 3.91 / 4.00</p>
+            <div class="mt-2">
+              <span class="badge" style="background-color: var(--gold); color: #0f2a4e; font-weight: 600;">
+                <i class="bi bi-award-fill me-1"></i>Full-Ride Academic Scholarship
+              </span>
+            </div>
+            <p class="small mt-2 mb-0 text-muted">Finance Society Member</p>
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="bg-white rounded-3 shadow-sm p-4 mb-4 resume-card">
+          <h6 class="section-title">Skills</h6>
+          <p class="small fw-semibold text-muted mb-1">Finance &amp; Analytics</p>
+          <div class="mb-3">
+            <span class="skill-tag">Financial Modeling</span>
+            <span class="skill-tag">Sensitivity Analysis</span>
+            <span class="skill-tag">Scenario Modeling</span>
+            <span class="skill-tag">Excel</span>
+            <span class="skill-tag">Pitch Decks</span>
+          </div>
+          <p class="small fw-semibold text-muted mb-1">Languages</p>
+          <div class="mb-3">
+            <span class="skill-tag">Thai (Fluent)</span>
+            <span class="skill-tag">Lao (Conversational)</span>
+            <span class="skill-tag">English (Native)</span>
+          </div>
+          <p class="small fw-semibold text-muted mb-1">Other</p>
+          <div>
+            <span class="skill-tag">Product Demos</span>
+            <span class="skill-tag">Team Leadership</span>
+            <span class="skill-tag">AI Technology</span>
+            <span class="skill-tag">Prospecting</span>
+            <span class="skill-tag">Phlebotomy (Cert.)</span>
+          </div>
+        </div>
+
+        <!-- Honors & Activities -->
+        <div class="bg-white rounded-3 shadow-sm p-4 resume-card">
+          <h6 class="section-title">Honors &amp; Activities</h6>
+          <div class="award-item">
+            <i class="bi bi-award-fill fs-5" style="color: var(--gold); flex-shrink: 0; margin-top: 1px;"></i>
+            <div>
+              <p class="mb-0 fw-semibold small">Full-Ride Academic Scholarship</p>
+              <p class="mb-0 text-muted small">Brigham Young University</p>
+            </div>
+          </div>
+          <div class="award-item">
+            <i class="bi bi-people-fill fs-5 text-primary" style="flex-shrink: 0; margin-top: 1px;"></i>
+            <div>
+              <p class="mb-0 fw-semibold small">Finance Society</p>
+              <p class="mb-0 text-muted small">BYU Member</p>
+            </div>
+          </div>
+          <div class="award-item">
+            <i class="bi bi-trophy-fill fs-5" style="color: var(--gold); flex-shrink: 0; margin-top: 1px;"></i>
+            <div>
+              <p class="mb-0 fw-semibold small">Cougar Tech AI Assist</p>
+              <p class="mb-0 text-muted small">Case Competition Participant &middot; Feb 2026</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: Work Experience, Leadership -->
+      <div class="col-md-8">
+
+        <!-- Work Experience -->
+        <div class="bg-white rounded-3 shadow-sm p-4 mb-4 resume-card">
+          <h6 class="section-title">Work Experience</h6>
+
+          <div class="timeline-item">
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-1 mb-1">
+              <div>
+                <h6 class="fw-bold mb-0">Sales &amp; Technology Intern</h6>
+                <p class="mb-0" style="color: var(--navy); font-weight: 600; font-size: 0.9rem;">Write Grader (AI Grading Assistant)</p>
+              </div>
+              <span class="badge bg-light text-dark border small fw-normal">Jan 2026 &ndash; Present</span>
+            </div>
+            <p class="text-muted small mb-2">Provo, UT</p>
+            <ul class="small mb-0 ps-3">
+              <li class="mb-1">Prospected universities and faculty through targeted outreach and product demonstrations</li>
+              <li class="mb-1">Tested AI grading features and incorporated user feedback into product development cycles</li>
+              <li>Delivered 4+ weekly product demos to faculty and academic institutions</li>
+            </ul>
+          </div>
+
+          <div class="timeline-item">
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-1 mb-1">
+              <div>
+                <h6 class="fw-bold mb-0">Financial Advisor Assistant</h6>
+                <p class="mb-0" style="color: var(--navy); font-weight: 600; font-size: 0.9rem;">PacNorth Retirement &mdash; Wealth Management</p>
+              </div>
+              <span class="badge bg-light text-dark border small fw-normal">Jun &ndash; Aug 2025</span>
+            </div>
+            <p class="text-muted small mb-2">Spokane, WA</p>
+            <ul class="small mb-0 ps-3">
+              <li class="mb-1">Served as lead account opener during broker-dealer transition</li>
+              <li>Collaborated directly with clients on retirement and brokerage account transitions</li>
+            </ul>
+          </div>
+
+          <div class="timeline-item">
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-1 mb-1">
+              <div>
+                <h6 class="fw-bold mb-0">Case Competition Participant</h6>
+                <p class="mb-0" style="color: var(--navy); font-weight: 600; font-size: 0.9rem;">Cougar Tech AI Assist Case Competition</p>
+              </div>
+              <span class="badge bg-light text-dark border small fw-normal">Feb 2026</span>
+            </div>
+            <p class="text-muted small mb-2">Provo, UT</p>
+            <ul class="small mb-0 ps-3">
+              <li class="mb-1">Built financial model with 18+ assumptions analyzing multiple pricing strategies</li>
+              <li>Presented 12-slide pitch deck recommending a revenue-maximizing pricing structure</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Leadership & Service -->
+        <div class="bg-white rounded-3 shadow-sm p-4 resume-card">
+          <h6 class="section-title">Leadership &amp; Service</h6>
+
+          <div class="timeline-item">
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-1 mb-1">
+              <div>
+                <h6 class="fw-bold mb-0">Volunteer Representative</h6>
+                <p class="mb-0" style="color: var(--navy); font-weight: 600; font-size: 0.9rem;">The Church of Jesus Christ of Latter-day Saints</p>
+              </div>
+              <span class="badge bg-light text-dark border small fw-normal">Jan 2023 &ndash; Dec 2024</span>
+            </div>
+            <p class="text-muted small mb-2">Bangkok, Thailand</p>
+            <ul class="small mb-0 ps-3">
+              <li class="mb-1">Managed mission-wide statistical reports and led organization-wide training sessions</li>
+              <li class="mb-1">Organized and directed a <strong>50-person service team</strong> for flood relief in Northern Thailand</li>
+              <li>Designed and implemented a language tutoring program for incoming representatives</li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="py-4">
+    <div class="container text-center">
+      <div class="d-flex justify-content-center gap-4 mb-3">
+        <a href="https://linkedin.com/in/alec-roland12345" target="_blank" aria-label="LinkedIn"><i class="bi bi-linkedin fs-5"></i></a>
+        <a href="mailto:alecr04@byu.edu" aria-label="Email"><i class="bi bi-envelope-fill fs-5"></i></a>
+        <a href="tel:5099981299" aria-label="Phone"><i class="bi bi-telephone-fill fs-5"></i></a>
+      </div>
+      <p class="mb-0 text-muted small">&copy; 2025 Alec Roland</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

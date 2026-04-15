@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thailand Trivia | Alec Roland</title>
+  <style>
+    /* ========================================================
+       ALL STYLES IN ONE FILE (no Bootstrap, no external CSS)
+       ======================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-dark: #0c1a0e;
+      --gold: #f5c542;
+      --gold-hover: #e0b030;
+      --card-bg: rgba(255, 255, 255, 0.06);
+      --card-border: rgba(245, 197, 66, 0.25);
+      --text-main: #f0e6d3;
+      --text-muted: #c9a97a;
+      --green: #3ddc84;
+      --red: #ff5f5f;
+      --correct-bg: rgba(61, 220, 132, 0.15);
+      --wrong-bg: rgba(255, 95, 95, 0.15);
+      --font-main: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-dark);
+      background-image: url('https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1200&q=60');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 14, 6, 0.82);
+      z-index: 0;
+    }
+
+    /* Page wrapper */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top nav */
+    .top-nav {
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(245, 197, 66, 0.2);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .top-nav a {
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .top-nav a:hover { color: #fff; }
+    .top-nav .brand {
+      font-size: 0.95rem;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* Main container */
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+      flex: 1;
+    }
+
+    /* Card base */
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 36px 40px;
+      margin-bottom: 20px;
+    }
+
+    /* ---- SCREENS ---- */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* Intro screen */
+    .intro-icon { font-size: 4rem; text-align: center; margin-bottom: 12px; }
+    .intro-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--gold);
+      text-align: center;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .intro-sub {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      font-size: 0.95rem;
+    }
+    .category-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .category-chip {
+      background: rgba(245, 197, 66, 0.1);
+      border: 1px solid rgba(245, 197, 66, 0.25);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      color: var(--gold);
+      text-align: center;
+    }
+    .category-chip span { font-size: 1.2rem; display: block; margin-bottom: 3px; }
+
+    /* Progress bar */
+    .progress-wrap {
+      margin-bottom: 20px;
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .progress-bar-outer {
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .progress-bar-inner {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), #e8a000);
+      border-radius: 3px;
+      transition: width 0.4s ease;
+    }
+
+    /* Question screen */
+    .q-category {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .q-text {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .option-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 14px 18px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, transform 0.1s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-main);
+    }
+    .option-btn:hover:not(:disabled) {
+      background: rgba(245, 197, 66, 0.12);
+      border-color: rgba(245, 197, 66, 0.5);
+      transform: translateX(3px);
+    }
+    .option-btn:disabled { cursor: default; }
+    .option-btn.correct {
+      background: var(--correct-bg);
+      border-color: var(--green);
+      color: var(--green);
+    }
+    .option-btn.wrong {
+      background: var(--wrong-bg);
+      border-color: var(--red);
+      color: var(--red);
+    }
+    .option-label {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .option-btn.correct .option-label { background: var(--green); color: #000; }
+    .option-btn.wrong .option-label { background: var(--red); color: #fff; }
+
+    /* Feedback box */
+    .feedback {
+      margin-top: 18px;
+      padding: 14px 18px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      display: none;
+    }
+    .feedback.correct { background: var(--correct-bg); border: 1px solid var(--green); color: #a8ffcb; }
+    .feedback.wrong { background: var(--wrong-bg); border: 1px solid var(--red); color: #ffb3b3; }
+    .feedback.show { display: block; }
+
+    /* Score strip */
+    .score-strip {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .score-chip {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .score-chip .val { color: #fff; font-weight: 700; }
+
+    /* Results screen */
+    .results-icon { font-size: 4.5rem; text-align: center; margin-bottom: 10px; }
+    .results-title {
+      font-size: 2rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+    .results-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+    }
+    .score-display {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .score-big {
+      font-size: 4rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .score-denom { font-size: 1.5rem; color: var(--text-muted); font-weight: 400; }
+    .score-pct {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+    .results-message {
+      background: rgba(255,255,255,0.05);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 18px;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .answer-review { margin-bottom: 24px; }
+    .answer-review h3 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .review-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.88rem;
+    }
+    .review-icon { flex-shrink: 0; margin-top: 2px; font-size: 1rem; }
+    .review-q { color: var(--text-muted); line-height: 1.4; }
+    .review-a { color: var(--text-main); font-weight: 600; }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      font-family: var(--font-main);
+      font-weight: 700;
+      padding: 13px 32px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+      text-decoration: none;
+      text-align: center;
+    }
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold), #e0a800);
+      color: #0c1a0e;
+    }
+    .btn-gold:hover { box-shadow: 0 6px 18px rgba(245, 197, 66, 0.4); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--gold);
+      border: 2px solid var(--gold);
+    }
+    .btn-outline:hover { background: rgba(245, 197, 66, 0.1); }
+
+    .btn-next {
+      margin-top: 16px;
+      width: 100%;
+      display: none;
+    }
+    .btn-next.show { display: block; }
+
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 520px) {
+      .card { padding: 24px 20px; }
+      .intro-title { font-size: 1.9rem; }
+      .category-grid { grid-template-columns: 1fr 1fr; }
+      .q-text { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Top nav -->
+  <nav class="top-nav">
+    <span class="brand">&#127481;&#127469; Thailand Trivia</span>
+    <div>
+      <a href="index.html" style="margin-right: 16px;">Home</a>
+      <a href="scratch.html">Adventures</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- ============ INTRO SCREEN ============ -->
+    <div id="screen-intro" class="screen active">
+      <div class="card">
+        <div class="intro-icon">&#127481;&#127469;</div>
+        <h1 class="intro-title">Thailand Trivia</h1>
+        <p class="intro-sub">15 questions &bull; 4 categories &bull; How well do you know the Land of Smiles?</p>
+
+        <div class="category-grid">
+          <div class="category-chip"><span>&#127963;</span>Culture &amp; History</div>
+          <div class="category-chip"><span>&#127869;</span>Food &amp; Cuisine</div>
+          <div class="category-chip"><span>&#127757;</span>Geography</div>
+          <div class="category-chip"><span>&#128483;</span>Language &amp; Life</div>
+        </div>
+
+        <div style="text-align: center;">
+          <button class="btn btn-gold" onclick="startQuiz()">Start Quiz &#8594;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ QUESTION SCREEN ============ -->
+    <div id="screen-quiz" class="screen">
+
+      <!-- Score strip -->
+      <div class="score-strip">
+        <div class="score-chip">
+          Question <span class="val" id="q-counter">1 / 15</span>
+        </div>
+        <div class="score-chip">
+          Score &nbsp;<span class="val" id="score-live">0</span>
+        </div>
+        <div class="score-chip" id="streak-chip" style="display:none;">
+          Streak &#128293;&nbsp;<span class="val" id="streak-val">0</span>
+        </div>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="progress-wrap">
+        <div class="progress-label">
+          <span id="progress-label-text">Question 1 of 15</span>
+          <span id="progress-pct">0%</span>
+        </div>
+        <div class="progress-bar-outer">
+          <div class="progress-bar-inner" id="progress-bar" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- Question card -->
+      <div class="card">
+        <p class="q-category" id="q-category">Culture</p>
+        <p class="q-text" id="q-text">Question goes here</p>
+
+        <div class="options-grid" id="options-container"></div>
+
+        <div class="feedback" id="feedback-box"></div>
+
+        <button class="btn btn-gold btn-next" id="btn-next" onclick="nextQuestion()">
+          Next Question &#8594;
+        </button>
+      </div>
+
+    </div>
+
+    <!-- ============ RESULTS SCREEN ============ -->
+    <div id="screen-results" class="screen">
+      <div class="card">
+        <div class="results-icon" id="results-icon">&#127942;</div>
+        <h2 class="results-title" id="results-title">Quiz Complete!</h2>
+        <p class="results-subtitle" id="results-subtitle">Here's how you did:</p>
+
+        <div class="score-display">
+          <div class="score-big" id="results-score-big">
+            <span id="final-score" style="color: var(--gold);">0</span>
+            <span class="score-denom" id="final-denom">/ 15</span>
+          </div>
+          <div class="score-pct" id="results-pct">0% correct</div>
+        </div>
+
+        <div class="results-message" id="results-message"></div>
+
+        <div class="answer-review">
+          <h3>Review Your Answers</h3>
+          <div id="review-list"></div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-gold" onclick="restartQuiz()">Play Again &#8635;</button>
+          <a href="scratch.html" class="btn btn-outline">Adventures Page</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     ALL JAVASCRIPT IN ONE FILE
+     ============================================================ -->
+<script>
+  /* ---- Question bank ---- */
+  const questions = [
+    {
+      category: "Culture & History",
+      emoji: "🏛️",
+      q: "What does the name 'Thailand' literally mean?",
+      options: ["Land of Gold", "Land of the Free", "Land of Smiles", "Land of Temples"],
+      answer: 1,
+      fact: "Thailand's name comes from 'Thai' (free) + 'land' — it reflects national pride in never being colonized."
+    },
+    {
+      category: "Culture & History",
+      emoji: "🏛️",
+      q: "What is the official religion of Thailand?",
+      options: ["Islam", "Hinduism", "Theravada Buddhism", "Christianity"],
+      answer: 2,
+      fact: "Over 93% of Thais practice Theravada Buddhism. Monks in saffron robes are a common and revered sight."
+    },
+    {
+      category: "Culture & History",
+      emoji: "🏛️",
+      q: "Which temple is considered Thailand's most sacred Buddhist site?",
+      options: ["Wat Pho", "Wat Phra Kaew", "Wat Arun", "Wat Chedi Luang"],
+      answer: 1,
+      fact: "Wat Phra Kaew (Temple of the Emerald Buddha) sits inside the Grand Palace compound in Bangkok and houses a revered jade statue."
+    },
+    {
+      category: "Culture & History",
+      emoji: "🏛️",
+      q: "Thailand was formerly known by what name?",
+      options: ["Siam", "Indochina", "Pagan", "Khmer"],
+      answer: 0,
+      fact: "The country was officially called Siam until 1939, when the name was changed to Thailand."
+    },
+    {
+      category: "Culture & History",
+      emoji: "🏛️",
+      q: "What major event does Thailand celebrate during Songkran each April?",
+      options: ["Constitution Day", "Thai New Year", "King's Birthday", "Harvest Festival"],
+      answer: 1,
+      fact: "Songkran is the Thai New Year water festival — streets fill with water fights as a symbol of cleansing and renewal."
+    },
+    {
+      category: "Food & Cuisine",
+      emoji: "🍜",
+      q: "Which dish is often called Thailand's national dish?",
+      options: ["Tom Kha Gai", "Green Curry", "Pad Thai", "Khao Pad"],
+      answer: 2,
+      fact: "Pad Thai (stir-fried rice noodles with egg, tofu or shrimp, peanuts, and lime) is Thailand's most internationally recognized dish."
+    },
+    {
+      category: "Food & Cuisine",
+      emoji: "🍜",
+      q: "What is 'Tom Yum'?",
+      options: ["A type of rice", "A spicy and sour soup", "A sweet dessert", "A fermented fish sauce"],
+      answer: 1,
+      fact: "Tom Yum is a hot and sour Thai soup, typically made with lemongrass, galangal, kaffir lime leaves, shrimp, and chili."
+    },
+    {
+      category: "Food & Cuisine",
+      emoji: "🍜",
+      q: "What is Thailand's most popular dessert?",
+      options: ["Coconut Ice Cream", "Mango Sticky Rice", "Tub Tim Grob", "Khanom Krok"],
+      answer: 1,
+      fact: "Mango sticky rice (Khao Niao Mamuang) — glutinous rice with fresh mango and sweet coconut cream — is beloved worldwide."
+    },
+    {
+      category: "Food & Cuisine",
+      emoji: "🍜",
+      q: "What fish sauce is a staple condiment on Thai tables?",
+      options: ["Oyster sauce", "Soy sauce", "Nam pla", "Worcestershire sauce"],
+      answer: 2,
+      fact: "Nam pla (น้ำปลา) is a fermented fish sauce used throughout Thai cooking — it's the salt of Southeast Asian cuisine."
+    },
+    {
+      category: "Geography",
+      emoji: "🗺️",
+      q: "What is the capital city of Thailand?",
+      options: ["Chiang Mai", "Phuket", "Bangkok", "Pattaya"],
+      answer: 2,
+      fact: "Bangkok (officially Krung Thep Maha Nakhon) is the capital and largest city. Its full ceremonial name is the longest city name in the world!"
+    },
+    {
+      category: "Geography",
+      emoji: "🗺️",
+      q: "Which country does NOT share a border with Thailand?",
+      options: ["Myanmar", "Cambodia", "Vietnam", "Indonesia"],
+      answer: 3,
+      fact: "Thailand borders Myanmar, Laos, Cambodia, and Malaysia. Indonesia is separated by ocean."
+    },
+    {
+      category: "Geography",
+      emoji: "🗺️",
+      q: "What is the main river that flows through Bangkok?",
+      options: ["Mekong River", "Irrawaddy River", "Chao Phraya River", "Ping River"],
+      answer: 2,
+      fact: "The Chao Phraya River is Bangkok's lifeline — it runs through the heart of the city and has sustained Thai civilization for centuries."
+    },
+    {
+      category: "Geography",
+      emoji: "🗺️",
+      q: "Which Thai island is famous for its nightlife and resorts?",
+      options: ["Koh Samui", "Phuket", "Koh Lipe", "Koh Tao"],
+      answer: 1,
+      fact: "Phuket is Thailand's largest island and most famous international resort destination, known for beaches, nightlife, and resorts."
+    },
+    {
+      category: "Language & Life",
+      emoji: "🗣️",
+      q: "How many tones does the Thai language have?",
+      options: ["3", "4", "5", "6"],
+      answer: 2,
+      fact: "Thai has 5 tones: mid, low, falling, high, and rising. The same syllable with different tones has completely different meanings!"
+    },
+    {
+      category: "Language & Life",
+      emoji: "🗣️",
+      q: "What is the Thai greeting gesture called?",
+      options: ["Namaste", "Wai", "Salaam", "Bowing"],
+      answer: 1,
+      fact: "The Wai (ไหว้) is a gesture of greeting, respect, and thanks — you press your palms together and bow slightly. The higher the hands, the more respect shown."
+    }
+  ];
+
+  /* ---- App state ---- */
+  let currentQ = 0;
+  let score = 0;
+  let streak = 0;
+  let answered = false;
+  let userAnswers = [];
+  let shuffledQuestions = [];
+
+  /* ---- Helpers ---- */
+  function shuffleArray(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  /* ---- Start quiz ---- */
+  function startQuiz() {
+    shuffledQuestions = shuffleArray(questions);
+    currentQ = 0;
+    score = 0;
+    streak = 0;
+    userAnswers = [];
+    showScreen('screen-quiz');
+    renderQuestion();
+  }
+
+  /* ---- Render question ---- */
+  function renderQuestion() {
+    const q = shuffledQuestions[currentQ];
+    answered = false;
+
+    // Progress
+    const pct = Math.round((currentQ / shuffledQuestions.length) * 100);
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('progress-pct').textContent = pct + '%';
+    document.getElementById('progress-label-text').textContent = `Question ${currentQ + 1} of ${shuffledQuestions.length}`;
+    document.getElementById('q-counter').textContent = `${currentQ + 1} / ${shuffledQuestions.length}`;
+    document.getElementById('score-live').textContent = score;
+
+    // Streak chip
+    if (streak >= 2) {
+      document.getElementById('streak-chip').style.display = 'flex';
+      document.getElementById('streak-val').textContent = streak;
+    } else {
+      document.getElementById('streak-chip').style.display = 'none';
+    }
+
+    // Question text
+    document.getElementById('q-category').textContent = `${q.emoji}  ${q.category}`;
+    document.getElementById('q-text').textContent = q.q;
+
+    // Options
+    const labels = ['A', 'B', 'C', 'D'];
+    const container = document.getElementById('options-container');
+    container.innerHTML = '';
+    q.options.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'option-btn';
+      btn.innerHTML = `<span class="option-label">${labels[i]}</span> ${opt}`;
+      btn.onclick = () => selectAnswer(i, btn);
+      container.appendChild(btn);
+    });
+
+    // Reset feedback and next button
+    const fb = document.getElementById('feedback-box');
+    fb.className = 'feedback';
+    fb.textContent = '';
+
+    const nextBtn = document.getElementById('btn-next');
+    nextBtn.className = 'btn btn-gold btn-next';
+    nextBtn.textContent = currentQ < shuffledQuestions.length - 1 ? 'Next Question →' : 'See Results →';
+  }
+
+  /* ---- Select answer ---- */
+  function selectAnswer(idx, clickedBtn) {
+    if (answered) return;
+    answered = true;
+
+    const q = shuffledQuestions[currentQ];
+    const correct = q.answer;
+    const isCorrect = idx === correct;
+
+    // Style all buttons
+    const btns = document.querySelectorAll('.option-btn');
+    btns.forEach((btn, i) => {
+      btn.disabled = true;
+      if (i === correct) btn.classList.add('correct');
+    });
+    if (!isCorrect) clickedBtn.classList.add('wrong');
+
+    // Score & streak
+    if (isCorrect) {
+      score++;
+      streak++;
+      document.getElementById('score-live').textContent = score;
+    } else {
+      streak = 0;
+    }
+
+    // Streak chip update
+    if (streak >= 2) {
+      document.getElementById('streak-chip').style.display = 'flex';
+      document.getElementById('streak-val').textContent = streak;
+    }
+
+    // Record answer
+    userAnswers.push({ q: q.q, correct: isCorrect, correctAnswer: q.options[correct], yourAnswer: q.options[idx] });
+
+    // Feedback
+    const fb = document.getElementById('feedback-box');
+    if (isCorrect) {
+      fb.className = 'feedback correct show';
+      fb.innerHTML = `✅ <strong>Correct!</strong> ${q.fact}`;
+    } else {
+      fb.className = 'feedback wrong show';
+      fb.innerHTML = `❌ <strong>Not quite.</strong> The answer was <strong>${q.options[correct]}</strong>. ${q.fact}`;
+    }
+
+    // Show next button
+    document.getElementById('btn-next').classList.add('show');
+  }
+
+  /* ---- Next question ---- */
+  function nextQuestion() {
+    currentQ++;
+    if (currentQ < shuffledQuestions.length) {
+      renderQuestion();
+      // Scroll to top of quiz card
+      document.getElementById('screen-quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      showResults();
+    }
+  }
+
+  /* ---- Show results ---- */
+  function showResults() {
+    const total = shuffledQuestions.length;
+    const pct = Math.round((score / total) * 100);
+
+    // Icon & title
+    let icon, title, subtitle, message;
+    if (pct === 100) {
+      icon = '🏆'; title = 'Perfect Score!'; subtitle = 'You aced every question!';
+      message = 'Incredible! You know Thailand better than most tourists — and maybe even most Thais! You must have spent some serious time immersed in the culture.';
+    } else if (pct >= 80) {
+      icon = '🥇'; title = 'Thailand Expert!'; subtitle = 'You really know your stuff.';
+      message = 'Outstanding! Your knowledge of Thailand — from its temples to its cuisine to its language — is seriously impressive. Just a few questions away from perfection!';
+    } else if (pct >= 60) {
+      icon = '🥈'; title = 'Solid Performance!'; subtitle = 'You know Thailand pretty well.';
+      message = 'Great job! You have a solid understanding of Thai culture and geography. A trip to Bangkok might sharpen up those last few gaps!';
+    } else if (pct >= 40) {
+      icon = '📚'; title = 'Room to Grow!'; subtitle = 'A decent start.';
+      message = 'Not bad! You picked up some facts along the way. Thailand is a rich and fascinating country — read the explanations above and try again to improve your score!';
+    } else {
+      icon = '✈️'; title = 'Time to Book a Trip!'; subtitle = 'The best way to learn is to go.';
+      message = 'Thailand is waiting for you! Don\'t worry — most people haven\'t studied Thai culture deeply. Take a read through the adventures page and come back for another round!';
+    }
+
+    document.getElementById('results-icon').textContent = icon;
+    document.getElementById('results-title').textContent = title;
+    document.getElementById('results-subtitle').textContent = subtitle;
+    document.getElementById('final-score').textContent = score;
+    document.getElementById('final-denom').textContent = `/ ${total}`;
+    document.getElementById('results-pct').textContent = `${pct}% correct`;
+    document.getElementById('results-message').textContent = message;
+
+    // Score color
+    const bigScore = document.getElementById('final-score');
+    if (pct >= 80) bigScore.style.color = '#3ddc84';
+    else if (pct >= 50) bigScore.style.color = '#f5c542';
+    else bigScore.style.color = '#ff7f7f';
+
+    // Review list
+    const reviewList = document.getElementById('review-list');
+    reviewList.innerHTML = '';
+    userAnswers.forEach(ua => {
+      const div = document.createElement('div');
+      div.className = 'review-item';
+      div.innerHTML = `
+        <span class="review-icon">${ua.correct ? '✅' : '❌'}</span>
+        <div>
+          <div class="review-q">${ua.q}</div>
+          <div class="review-a">${ua.correct ? ua.correctAnswer : `Your answer: ${ua.yourAnswer} — Correct: ${ua.correctAnswer}`}</div>
+        </div>`;
+      reviewList.appendChild(div);
+    });
+
+    showScreen('screen-results');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ---- Restart ---- */
+  function restartQuiz() {
+    startQuiz();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

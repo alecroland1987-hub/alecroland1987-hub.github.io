@@ -1,214 +1,210 @@
-<!DOCTYPE html>
+<\!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alec Roland | Finance & Business</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <title>Alec Roland</title>
   <style>
-    :root { --navy: #0f2a4e; --gold: #d4a843; }
-    body { font-family: 'Segoe UI', sans-serif; }
-
-    /* Navbar */
-    .navbar { background-color: var(--navy) !important; }
-    .navbar-brand { font-weight: 700; font-size: 1.4rem; letter-spacing: 0.5px; }
-    .nav-link { font-weight: 500; }
-
-    /* Hero */
-    .hero-section {
-      background: linear-gradient(135deg, #0f2a4e 0%, #1a4472 50%, #0d3b6e 100%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 80px 0 60px;
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 15px;
+      color: #333;
+      background-color: #fff;
+      margin: 0;
+      padding: 0 0 50px 0;
     }
-    .hero-tagline {
-      letter-spacing: 3px;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-    .hero-cta .btn-primary {
-      background-color: var(--gold);
-      border-color: var(--gold);
-      color: #0f2a4e;
-      font-weight: 700;
-    }
-    .hero-cta .btn-primary:hover { background-color: #c4983a; border-color: #c4983a; color: #fff; }
+    a { color: maroon; text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-    /* Sections */
-    .section-divider { width: 50px; height: 3px; background: var(--gold); margin: 0.75rem auto 1.5rem; }
-    .section-divider-left { width: 50px; height: 3px; background: var(--gold); margin: 0.75rem 0 1.5rem; }
-
-    /* Cards */
-    .feature-card {
-      border: none;
-      border-top: 3px solid var(--gold);
-      border-radius: 8px;
-      transition: transform 0.25s, box-shadow 0.25s;
+    /* Header */
+    #header {
+      background-color: #fff;
+      border-bottom: 1px solid #555;
+      padding: 12px 20px;
+      overflow: hidden;
+      position: relative;
+      z-index: 2;
     }
-    .feature-card:hover { transform: translateY(-5px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
-
-    /* Skill chips */
-    .skill-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #eaf0fb;
-      color: #0f2a4e;
-      border-radius: 20px;
-      padding: 6px 14px;
-      font-size: 0.875rem;
-      font-weight: 500;
+    #header img {
+      float: left;
+      width: 85px; height: 85px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: right top;
+      margin-right: 15px;
+      border: 2px solid #999;
     }
+    #header-text { float: left; }
+    #header h1 { margin: 0 0 2px 0; font-size: 1.5rem; }
+    #header p  { margin: 0 0 6px 0; color: #555; font-size: 0.9rem; }
+    #header-links a { margin-right: 14px; font-size: 0.9rem; }
+
+    /* Three-column layout */
+    #wrapper { display: flex; min-height: calc(100vh - 160px); }
+
+    #left-menu {
+      width: 160px; min-width: 160px;
+      border-right: 1px solid #555;
+      padding: 18px 12px;
+      background-color: #fafafa;
+      font-size: 0.9rem;
+    }
+    #left-menu h3 {
+      font-size: 0.8rem; text-transform: uppercase;
+      letter-spacing: 1px; color: #666;
+      margin: 0 0 8px 0;
+      border-bottom: 1px solid #ccc; padding-bottom: 3px;
+    }
+    #left-menu ul { list-style: none; padding: 0; margin: 0 0 18px 0; }
+    #left-menu ul li { margin-bottom: 7px; }
+
+    #main-body { flex: 1; padding: 18px; }
+    #main-body h2 {
+      font-size: 1.15rem;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 4px; margin-bottom: 10px;
+    }
+    #main-body p { line-height: 1.7; margin-bottom: 12px; }
+
+    #right-menu {
+      width: 195px; min-width: 195px;
+      border-left: 1px solid #555;
+      padding: 18px 14px;
+      font-size: 0.88rem;
+    }
+    #right-menu h3 {
+      font-size: 0.8rem; text-transform: uppercase;
+      letter-spacing: 1px; color: #666;
+      margin: 0 0 8px 0;
+      border-bottom: 1px solid #ccc; padding-bottom: 3px;
+    }
+    #right-menu ul { padding-left: 16px; margin: 4px 0 16px 0; line-height: 1.7; color: #444; }
+    #right-menu p  { font-size: 0.85rem; line-height: 1.6; color: #444; margin: 0 0 16px 0; }
 
     /* Footer */
-    footer { background-color: var(--navy); }
-    footer a { color: #aac4e8; text-decoration: none; }
-    footer a:hover { color: #fff; }
+    #footer {
+      position: fixed; bottom: 0; width: 100%;
+      background-color: #fff;
+      border-top: 1px solid #555;
+      text-align: center;
+      padding: 8px 0;
+      color: #999; font-size: 0.8rem;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow">
-    <div class="container">
-      <a class="navbar-brand text-white" href="index.html">Alec Roland</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link active text-white" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="resume.html">Resume</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="scratch.html">Adventures</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="app.html">Trivia App</a></li>
-        </ul>
+  <div id="header">
+    <img src="IMG_7146.JPG" alt="Alec Roland">
+    <div id="header-text">
+      <h1>Alec C. Roland</h1>
+      <p>Finance Student &mdash; BYU Marriott School of Business</p>
+      <div id="header-links">
+        <a href="index.html">Home</a>
+        <a href="resume.html">Resume</a>
+        <a href="scratch.html">Adventures</a>
+        <a href="app.html">Trivia App</a>
       </div>
     </div>
-  </nav>
+  </div>
 
-  <!-- Hero -->
-  <section class="hero-section text-white">
-    <div class="container">
-      <div class="row align-items-center g-5">
-        <div class="col-lg-7">
-          <p class="hero-tagline mb-2">Finance Student · BYU Marriott School of Business</p>
-          <h1 class="display-3 fw-bold mb-3 lh-1">Alec C.<br>Roland</h1>
-          <p class="lead mb-4" style="max-width: 520px; color: #c8daf2;">
-            Aspiring finance professional with a 3.91 GPA, full-ride scholarship, experience in wealth management and AI technology, and two years living in Bangkok, Thailand.
-          </p>
-          <div class="d-flex flex-wrap gap-3 hero-cta mb-4">
-            <a href="resume.html" class="btn btn-primary btn-lg px-4 fw-bold">View Resume</a>
-            <a href="mailto:alecr04@byu.edu" class="btn btn-outline-light btn-lg px-4">Contact Me</a>
-          </div>
-          <div class="d-flex gap-4 mt-2">
-            <a href="https://linkedin.com/in/alec-roland12345" class="text-white fs-4" target="_blank" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-            <a href="mailto:alecr04@byu.edu" class="text-white fs-4" aria-label="Email"><i class="bi bi-envelope-fill"></i></a>
-            <a href="tel:5099981299" class="text-white fs-4" aria-label="Phone"><i class="bi bi-telephone-fill"></i></a>
-          </div>
-        </div>
-        <div class="col-lg-5 d-none d-lg-flex justify-content-center">
-          <!-- Decorative stat cards -->
-          <div class="d-flex flex-column gap-3" style="max-width: 280px; width: 100%;">
-            <div class="rounded-3 p-3 text-center" style="background: rgba(255,255,255,0.08); backdrop-filter: blur(8px);">
-              <div class="fs-2 fw-bold text-warning">3.91</div>
-              <div class="small text-light">GPA at BYU</div>
-            </div>
-            <div class="rounded-3 p-3 text-center" style="background: rgba(255,255,255,0.08); backdrop-filter: blur(8px);">
-              <div class="fs-2 fw-bold text-warning">2 Years</div>
-              <div class="small text-light">Living in Bangkok, Thailand</div>
-            </div>
-            <div class="rounded-3 p-3 text-center" style="background: rgba(255,255,255,0.08); backdrop-filter: blur(8px);">
-              <div class="fs-2 fw-bold text-warning">Fluent</div>
-              <div class="small text-light">Thai Language</div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div id="wrapper">
+
+    <div id="left-menu">
+      <h3>Navigate</h3>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="resume.html">Resume</a></li>
+        <li><a href="scratch.html">Adventures</a></li>
+        <li><a href="app.html">Trivia App</a></li>
+      </ul>
+      <h3>Links</h3>
+      <ul>
+        <li><a href="https://linkedin.com/in/alec-roland12345" target="_blank">LinkedIn</a></li>
+        <li><a href="mailto:alecr04@byu.edu">Email Me</a></li>
+      </ul>
     </div>
-  </section>
 
-  <!-- About Cards -->
-  <section class="py-5 bg-light">
-    <div class="container">
-      <div class="text-center mb-5">
-        <h2 class="fw-bold">About Me</h2>
-        <div class="section-divider"></div>
-      </div>
-      <div class="row g-4 justify-content-center">
-        <div class="col-md-4">
-          <div class="card feature-card h-100 p-4 shadow-sm text-center">
-            <div class="mb-3"><i class="bi bi-mortarboard-fill fs-1" style="color: var(--gold);"></i></div>
-            <h5 class="fw-bold">Education</h5>
-            <p class="text-muted mb-0">BYU Marriott School of Business<br>Pre-Business · Applying to Finance<br><strong>GPA: 3.91</strong> · Class of 2028<br>Full-ride Academic Scholarship</p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card feature-card h-100 p-4 shadow-sm text-center">
-            <div class="mb-3"><i class="bi bi-briefcase-fill fs-1" style="color: var(--gold);"></i></div>
-            <h5 class="fw-bold">Experience</h5>
-            <p class="text-muted mb-0">Sales & Tech Intern at Write Grader AI<br>Financial Advisor Assistant<br>at PacNorth Retirement<br>Cougar Tech AI Case Competition</p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card feature-card h-100 p-4 shadow-sm text-center">
-            <div class="mb-3"><i class="bi bi-globe2 fs-1" style="color: var(--gold);"></i></div>
-            <h5 class="fw-bold">International</h5>
-            <p class="text-muted mb-0">2 years in Bangkok, Thailand<br>Fluent Thai · Conversational Lao<br>Led 50-person flood relief team<br>in Northern Thailand</p>
-          </div>
-        </div>
-      </div>
+    <div id="main-body">
+      <h2>About Me</h2>
+      <p>
+        Hi, I'm Alec Roland &mdash; a finance student at BYU's Marriott School of Business,
+        husband, and aspiring finance professional. I grew up in Spokane, WA and now live in
+        Provo, UT with my wife. I hold a 3.91 GPA and a full-ride academic scholarship, and
+        I'm currently applying to BYU's Finance program.
+      </p>
+      <p>
+        I'm driven by a passion for financial markets, problem-solving, and building things
+        that matter. I currently intern at <strong>Write Grader</strong>, an AI grading startup,
+        where I prospect universities and deliver product demos. Previously I worked as a
+        <strong>Financial Advisor Assistant</strong> at PacNorth Retirement in Spokane, helping
+        clients through a broker-dealer transition.
+      </p>
+
+      <h2>Experience &amp; Skills</h2>
+      <p>
+        My work experience spans financial modeling, wealth management, and AI technology sales.
+        In February 2026 I competed in the <strong>Cougar Tech AI Assist Case Competition</strong>,
+        building an 18-assumption financial model and presenting a 12-slide pricing strategy pitch.
+        I'm also a certified phlebotomist and an active member of BYU's Finance Society.
+      </p>
+
+      <h2>International Experience</h2>
+      <p>
+        From 2023 to 2024 I lived in <strong>Bangkok, Thailand</strong> for two years as a
+        volunteer representative. I became fluent in Thai, organized a 50-person flood relief
+        effort in northern Thailand, and built a language tutoring program for incoming
+        volunteers. It was a defining chapter that shaped how I think about leadership,
+        adaptability, and service. Read more on my <a href="scratch.html">Adventures</a> page.
+      </p>
+
+      <h2>Personal</h2>
+      <p>
+        Outside of school and work I enjoy spending time with my wife, following financial
+        news, and staying active. I speak Thai fluently and conversational Lao, and I love
+        any excuse to use them. Feel free to reach out &mdash; I'm always happy to connect.
+      </p>
     </div>
-  </section>
 
-  <!-- Skills -->
-  <section class="py-5">
-    <div class="container">
-      <div class="text-center mb-5">
-        <h2 class="fw-bold">Skills &amp; Highlights</h2>
-        <div class="section-divider"></div>
-      </div>
-      <div class="d-flex flex-wrap justify-content-center gap-3">
-        <span class="skill-chip"><i class="bi bi-bar-chart-fill text-primary"></i> Financial Modeling</span>
-        <span class="skill-chip"><i class="bi bi-file-earmark-spreadsheet text-primary"></i> Excel &amp; Scenario Analysis</span>
-        <span class="skill-chip"><i class="bi bi-translate text-primary"></i> Thai (Fluent)</span>
-        <span class="skill-chip"><i class="bi bi-translate text-primary"></i> Lao (Conversational)</span>
-        <span class="skill-chip"><i class="bi bi-robot text-primary"></i> AI Technology</span>
-        <span class="skill-chip"><i class="bi bi-people-fill text-primary"></i> Team Leadership</span>
-        <span class="skill-chip"><i class="bi bi-presentation-chart-fill text-primary"></i> Product Demos</span>
-        <span class="skill-chip"><i class="bi bi-file-earmark-medical text-primary"></i> Certified Phlebotomist</span>
-        <span class="skill-chip"><i class="bi bi-award-fill text-warning"></i> Full-Ride Scholar</span>
-      </div>
+    <div id="right-menu">
+      <h3>Quick Facts</h3>
+      <ul>
+        <li>GPA: <strong>3.91</strong></li>
+        <li>Full-ride scholar</li>
+        <li>Married</li>
+        <li>Provo, UT</li>
+        <li>From Spokane, WA</li>
+      </ul>
+      <h3>Contact</h3>
+      <p>
+        <a href="mailto:alecr04@byu.edu">alecr04@byu.edu</a><br>
+        (509) 998-1299<br>
+        <a href="https://linkedin.com/in/alec-roland12345" target="_blank">LinkedIn</a>
+      </p>
+      <h3>Skills</h3>
+      <ul>
+        <li>Financial modeling</li>
+        <li>Excel &amp; analysis</li>
+        <li>Thai (fluent)</li>
+        <li>Lao (conversational)</li>
+        <li>Product demos</li>
+        <li>Phlebotomy (cert.)</li>
+      </ul>
+      <h3>Interests</h3>
+      <ul>
+        <li>Finance &amp; markets</li>
+        <li>Language learning</li>
+        <li>Travel</li>
+        <li>Service &amp; leadership</li>
+      </ul>
     </div>
-  </section>
 
-  <!-- CTA Band -->
-  <section class="py-5" style="background: var(--navy);">
-    <div class="container text-center">
-      <h3 class="text-white fw-bold mb-3">Want to know more about my journey?</h3>
-      <p class="text-light mb-4">Check out my full resume or explore my adventures in Thailand.</p>
-      <div class="d-flex justify-content-center gap-3 flex-wrap">
-        <a href="resume.html" class="btn btn-warning fw-bold px-4">View Full Resume</a>
-        <a href="scratch.html" class="btn btn-outline-light px-4">Thailand Adventures</a>
-      </div>
-    </div>
-  </section>
+  </div>
 
-  <!-- Footer -->
-  <footer class="py-4">
-    <div class="container text-center">
-      <div class="d-flex justify-content-center gap-4 mb-3">
-        <a href="https://linkedin.com/in/alec-roland12345" target="_blank" aria-label="LinkedIn"><i class="bi bi-linkedin fs-5"></i></a>
-        <a href="mailto:alecr04@byu.edu" aria-label="Email"><i class="bi bi-envelope-fill fs-5"></i></a>
-        <a href="tel:5099981299" aria-label="Phone"><i class="bi bi-telephone-fill fs-5"></i></a>
-      </div>
-      <p class="mb-0 text-muted small">&copy; 2025 Alec Roland &middot; alecr04@byu.edu</p>
-    </div>
-  </footer>
+  <div id="footer">
+    &copy; 2025 Alec Roland &nbsp;&middot;&nbsp; alecr04@byu.edu &nbsp;&middot;&nbsp;
+    <a href="https://linkedin.com/in/alec-roland12345" target="_blank">LinkedIn</a>
+  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
